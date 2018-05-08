@@ -1,3 +1,9 @@
+/* 
+ - Como funciona, aqui deberia existir una logica o proveer datos y/o comportamientos a otros componentes
+ - usualmente tiene estados
+*/
+
+
 // debe ser asi para que se reconozcan los types
 import * as React from 'react';
 
