@@ -14,7 +14,9 @@ class App extends React.Component<any, any> {
     super(props);
     this.addItemHandler = this.addItemHandler.bind(this);
     this.toogleItemHandler = this.toogleItemHandler.bind(this);
+    this.changeFilterHandler = this.changeFilterHandler.bind(this);
     this.state = {
+      filter: 'SHOW_ALL',
       todo: [
    
       ], 
@@ -35,7 +37,7 @@ class App extends React.Component<any, any> {
   }
 
   public toogleItemHandler (id: string): any {
-    
+
     const newTodo = this.state.todo.map((item: any):any => {
       if (item.id === id) {
         item.completed = !item.completed;
@@ -46,14 +48,18 @@ class App extends React.Component<any, any> {
     this.setState({todo: newTodo}); 
   }
 
+  public changeFilterHandler = (filterText: string) => {
+    this.setState({...this.state, filter: filterText});
+  }
+
 
   public render() {
     return (
       <div className="App">
         <div className="App-intro">
           <AppTodo add= {this.addItemHandler}/>
-          <VisibleTodoList todo = {this.state.todo} toogle= {this.toogleItemHandler}/>
-          <MenuFilter/>
+          <VisibleTodoList todo = {this.state.todo} toogle= {this.toogleItemHandler} filter={this.state.filter}/>
+          <MenuFilter filter= {this.state.filter} change= {this.changeFilterHandler}/>
         </div>   
       </div>
     );
