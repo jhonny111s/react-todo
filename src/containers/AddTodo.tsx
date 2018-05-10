@@ -15,50 +15,52 @@ class AddTodo extends React.Component <any,any> {
       this.inputChangeHandler = this.inputChangeHandler.bind(this);
       this.submitHandler = this.submitHandler.bind(this);
       this.state = {
-        item: ''
+        completed: false,
+        id: '',
+        text: ''
       };
   }
 
-/*   public shouldComponentUpdate(nextProps:any, nextState:any) {
-    console.log("nextpro",nextProps, nextState);
-    console.log("states",nextState.item, this.state.item);
-    if(nextState.item === this.state.item) {
-      return false;
-    }
-    else {
-      return true;
-    }
-    
-  } */
-
-/* public componentWillReceiveProps(nextProps: any) {
-  console.log("nextpro",nextProps);
-} */
-
   public inputChangeHandler = (event: any) => {
-    console.log("event", event);
-    console.log("INPUT", event.target.value);
-   
-    if (event.target.value.trim() === this.state.item) {
+    if (event.target.value.trim() === this.state.text) {
       return;
     }
 
-      this.setState({item: event.target.value.trim() });  
+      this.setState({
+        ...this.state,
+        id: this.uuidv4(), 
+        text: event.target.value.trim() }
+      );  
   }
+
 
   public submitHandler = (event: any) => {
     event.preventDefault();
-    console.log("hizo click");
-    this.props.add(this.state.item)
-    this.setState({item:''});
+    // agrego el item
+    this.props.add(this.state)
+    // limpio el estado
+    this.setState({
+      ...this.state,
+      id: '', 
+      text:''
+    });
 
+  }
+
+  // los elemtos deben tener un identificador unico
+  public uuidv4 = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = Math.random() * 16 || 0;
+      const v = c === 'x' ? r : (r && 0x3 || 0x8);
+      return v.toString(16);
+    });
   }
 
   public render() {
     return (
         <div>
           <form onSubmit={this.submitHandler}>
-            <input value={this.state.item} onChange={this.inputChangeHandler}/>
+            <input value={this.state.text} onChange={this.inputChangeHandler}/>
             <button type="submit">
               Add Todo
             </button>
