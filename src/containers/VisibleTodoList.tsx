@@ -3,7 +3,14 @@ import * as React from 'react';
 import TodoItem from '../components/TodoItem';
 
 // compont tiene dos parametros props y states, son objetos
-class VisibleTodoList extends React.Component <any,{}> {
+class VisibleTodoList extends React.Component <any,any> {
+
+    constructor(props: any) {
+        super(props);
+        this.toogle = this.toogle.bind(this);
+      }
+    
+
 
     public getVisibleTodos = (todos: any[], filter: string): any[] => {
         switch (filter) {
@@ -18,14 +25,23 @@ class VisibleTodoList extends React.Component <any,{}> {
         }
       };
 
+      // preguntar porque no se puede hacer directamente en el onClick
+      public toogle = (e: any):any => {
+          this.props.toogle(e.target.id);
+      }
 
   public render() {
-
     let todoItems: any[] = [];
     
     if (this.props.todo) {
-        todoItems = this.props.todo.map((item: string, index: number): any => (
-            <TodoItem key= {index}> {item} </TodoItem>
+        todoItems = this.props.todo.map((item: any, index: number): any => (
+            <TodoItem key= {item.id}
+                id= {item.id}
+                completed= {item.completed}
+                click= {this.toogle}>
+               
+                {item.text} 
+            </TodoItem>
         ),[]);
     }
 
