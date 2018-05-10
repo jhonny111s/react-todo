@@ -32,9 +32,10 @@ class VisibleTodoList extends React.Component <any,any> {
 
   public render() {
     let todoItems: any[] = [];
+    const todoFilter = this.getVisibleTodos(this.props.todo, this.props.filter);
     
-    if (this.props.todo) {
-        todoItems = this.props.todo.map((item: any, index: number): any => (
+    if (todoFilter) {
+        todoItems = todoFilter.map((item: any, index: number): any => (
             <TodoItem key= {item.id}
                 id= {item.id}
                 completed= {item.completed}
