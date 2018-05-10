@@ -8,13 +8,17 @@
 import * as React from 'react';
 
 // compont tiene dos parametros props y states, son objetos
-class TodoItem extends React.Component <{},{}> {
+class TodoItem extends React.Component <any,any> {
 
   public render() {
     return (
-        <React.Fragment>
-        <li> {this.props.children} </li>
-        </React.Fragment>
+        <li id = {this.props.id}
+        onClick = {this.props.click}
+        style={{
+          textDecoration: this.props.completed ? 'line-through' : 'none'
+        }}> {this.props.children} </li>
+
+        
     );
   }
 }
