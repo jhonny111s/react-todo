@@ -2,33 +2,20 @@
 import * as React from 'react';
 import TodoItem from '../components/TodoItem';
 
+interface VisibleTodoInterface {
+    todo: TodoItemInterface[],
+    filter: string,
+    toogle(id: string):void
+}
+
+interface TodoItemInterface {
+    completed: boolean;
+    id: string,
+    text: string
+  }
+
 // compont tiene dos parametros props y states, son objetos
-class VisibleTodoList extends React.Component <any,any> {
-
-    constructor(props: any) {
-        super(props);
-        this.toogle = this.toogle.bind(this);
-      }
-    
-
-
-    public getVisibleTodos = (todos: any[], filter: string): any[] => {
-        switch (filter) {
-          case 'SHOW_ALL':
-            return todos
-          case 'SHOW_COMPLETED':
-            return todos.filter(t => t.completed)
-          case 'SHOW_ACTIVE':
-            return todos.filter(t => !t.completed)
-          default:
-            throw new Error('Unknown filter: ' + filter)
-        }
-      };
-
-      // preguntar porque no se puede hacer directamente en el onClick
-      public toogle = (e: any):any => {
-          this.props.toogle(e.target.id);
-      }
+class VisibleTodoList extends React.Component <VisibleTodoInterface,{}> {
 
   public render() {
     let todoItems: any[] = [];
@@ -39,7 +26,7 @@ class VisibleTodoList extends React.Component <any,any> {
             <TodoItem key= {item.id}
                 id= {item.id}
                 completed= {item.completed}
-                click= {this.toogle}>
+                click= {this.props.toogle}>
                
                 {item.text} 
             </TodoItem>
@@ -62,6 +49,20 @@ class VisibleTodoList extends React.Component <any,any> {
         </div>
     );
   }
+
+  private getVisibleTodos = (todos: TodoItemInterface[], filter: string): TodoItemInterface[]  => {
+    switch (filter) {
+      case 'SHOW_ALL':
+        return todos
+      case 'SHOW_COMPLETED':
+        return todos.filter(t => t.completed)
+      case 'SHOW_ACTIVE':
+        return todos.filter(t => !t.completed)
+      default:
+        throw new Error('Unknown filter: ' + filter)
+    }
+  };
+
 }
 
 export default VisibleTodoList;
