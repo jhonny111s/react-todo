@@ -7,13 +7,27 @@
 // debe ser asi para que se reconozcan los types
 import * as React from 'react';
 
-// compont tiene dos parametros props y states, son objetos
-class AddTodo extends React.Component <any,any> {
 
-  constructor(props: any) {
+
+interface TodoItemInterface {
+  completed: boolean;
+  id: string,
+  text: string
+}
+
+interface AddTodoPropsInterface {
+  add(newItem: TodoItemInterface):void;
+  
+}
+
+// compont tiene dos parametros props y states, son objetos
+class AddTodo extends React.Component <AddTodoPropsInterface,TodoItemInterface> {
+
+  constructor(props: AddTodoPropsInterface) {
     super(props);
       this.inputChangeHandler = this.inputChangeHandler.bind(this);
       this.submitHandler = this.submitHandler.bind(this);
+
       this.state = {
         completed: false,
         id: '',
@@ -21,7 +35,7 @@ class AddTodo extends React.Component <any,any> {
       };
   }
 
-  public inputChangeHandler = (event: any) => {
+  public inputChangeHandler = (event: { target: HTMLInputElement;}):void => {
     if (event.target.value.trim() === this.state.text) {
       return;
     }
@@ -34,7 +48,7 @@ class AddTodo extends React.Component <any,any> {
   }
 
 
-  public submitHandler = (event: any) => {
+  public submitHandler = (event: {preventDefault():void}) => {
     event.preventDefault();
     // agrego el item
     this.props.add(this.state)
