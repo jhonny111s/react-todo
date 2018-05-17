@@ -7,10 +7,21 @@ import MenuFilter from './containers/MenuFilter';
 import VisibleTodoList from './containers/VisibleTodoList';
 
 
+interface TodoStateInterface {
+  filter: string;
+  todo: TodoItemInterface[];
+}
 
-class App extends React.Component<any, any> {
+interface TodoItemInterface {
+  completed: boolean;
+  id: string,
+  text: string
+}
 
-  constructor(props: any) {
+
+class App extends React.Component <{}, TodoStateInterface> {
+ 
+  constructor(props: {}) {
     super(props);
     this.addItemHandler = this.addItemHandler.bind(this);
     this.toogleItemHandler = this.toogleItemHandler.bind(this);
@@ -23,8 +34,9 @@ class App extends React.Component<any, any> {
     };
   }
 
+ 
 
-  public addItemHandler (newItem: any): any {
+  public addItemHandler (newItem: TodoItemInterface): void {
     if(!newItem.text.trim()) {
       return;
     }
@@ -36,9 +48,9 @@ class App extends React.Component<any, any> {
     
   }
 
-  public toogleItemHandler (id: string): any {
+  public toogleItemHandler (id: string): void {
 
-    const newTodo = this.state.todo.map((item: any):any => {
+    const newTodo = this.state.todo.map((item: TodoItemInterface) => {
       if (item.id === id) {
         item.completed = !item.completed;
       }
@@ -48,7 +60,7 @@ class App extends React.Component<any, any> {
     this.setState({todo: newTodo}); 
   }
 
-  public changeFilterHandler = (filterText: string) => {
+  public changeFilterHandler = (filterText: string): void => {
     this.setState({...this.state, filter: filterText});
   }
 
