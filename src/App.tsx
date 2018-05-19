@@ -34,9 +34,19 @@ class App extends React.Component <{}, TodoStateInterface> {
     };
   }
 
- 
+  public render() {
+    return (
+      <div className="App">
+        <div className="App-intro">
+          <AppTodo add= {this.addItemHandler}/>
+          <VisibleTodoList todo = {this.state.todo} toogle= {this.toogleItemHandler} filter={this.state.filter}/>
+          <MenuFilter filter= {this.state.filter} change= {this.changeFilterHandler}/>
+        </div>   
+      </div>
+    );
+  }
 
-  public addItemHandler (newItem: TodoItemInterface): void {
+  private addItemHandler (newItem: TodoItemInterface): void {
     if(!newItem.text.trim()) {
       return;
     }
@@ -48,7 +58,7 @@ class App extends React.Component <{}, TodoStateInterface> {
     
   }
 
-  public toogleItemHandler (id: string): void {
+  private toogleItemHandler (id: string): void {
 
     const newTodo = this.state.todo.map((item: TodoItemInterface) => {
       if (item.id === id) {
@@ -60,21 +70,8 @@ class App extends React.Component <{}, TodoStateInterface> {
     this.setState({todo: newTodo}); 
   }
 
-  public changeFilterHandler = (filterText: string): void => {
+  private changeFilterHandler = (filterText: string): void => {
     this.setState({...this.state, filter: filterText});
-  }
-
-
-  public render() {
-    return (
-      <div className="App">
-        <div className="App-intro">
-          <AppTodo add= {this.addItemHandler}/>
-          <VisibleTodoList todo = {this.state.todo} toogle= {this.toogleItemHandler} filter={this.state.filter}/>
-          <MenuFilter filter= {this.state.filter} change= {this.changeFilterHandler}/>
-        </div>   
-      </div>
-    );
   }
 }
 
