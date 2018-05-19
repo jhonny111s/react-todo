@@ -18,11 +18,11 @@ interface TodoItemInterface {
 class VisibleTodoList extends React.Component <VisibleTodoInterface,{}> {
 
   public render() {
-    let todoItems: any[] = [];
+    let todoItems:JSX.Element[] = [];
     const todoFilter = this.getVisibleTodos(this.props.todo, this.props.filter);
     
     if (todoFilter) {
-        todoItems = todoFilter.map((item: any, index: number): any => (
+        todoItems = todoFilter.map((item: TodoItemInterface, index: number) => (
             <TodoItem key= {item.id}
                 id= {item.id}
                 completed= {item.completed}
