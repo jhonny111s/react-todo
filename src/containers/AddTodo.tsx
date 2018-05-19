@@ -35,7 +35,20 @@ class AddTodo extends React.Component <AddTodoPropsInterface,TodoItemInterface> 
       };
   }
 
-  public inputChangeHandler = (event: { target: HTMLInputElement;}):void => {
+  public render() {
+    return (
+        <div>
+          <form onSubmit={this.submitHandler}>
+            <input value={this.state.text} onChange={this.inputChangeHandler}/>
+            <button type="submit">
+              Add Todo
+            </button>
+          </form>
+        </div>
+    );
+  }
+
+  private inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.value.trim() === this.state.text) {
       return;
     }
@@ -48,7 +61,7 @@ class AddTodo extends React.Component <AddTodoPropsInterface,TodoItemInterface> 
   }
 
 
-  public submitHandler = (event: {preventDefault():void}) => {
+  private submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     // agrego el item
     this.props.add(this.state)
@@ -58,29 +71,15 @@ class AddTodo extends React.Component <AddTodoPropsInterface,TodoItemInterface> 
       id: '', 
       text:''
     });
-
   }
 
   // los elemtos deben tener un identificador unico
-  public uuidv4 = () => {
+  private uuidv4 = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
       const r = Math.random() * 16 || 0;
       const v = c === 'x' ? r : (r && 0x3 || 0x8);
       return v.toString(16);
     });
-  }
-
-  public render() {
-    return (
-        <div>
-          <form onSubmit={this.submitHandler}>
-            <input value={this.state.text} onChange={this.inputChangeHandler}/>
-            <button type="submit">
-              Add Todo
-            </button>
-          </form>
-        </div>
-    );
   }
 }
 
