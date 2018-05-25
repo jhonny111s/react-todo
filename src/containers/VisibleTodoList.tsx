@@ -14,7 +14,8 @@ interface TodoItemInterface {
     text: string
   }
 
-// compont tiene dos parametros props y states, son objetos
+// el padre manda como propiedad una funcion y dos variable
+// este contenedor no tiene ningun estado por eso el vacio
 class VisibleTodoList extends React.Component <VisibleTodoInterface,{}> {
 
   public render() {

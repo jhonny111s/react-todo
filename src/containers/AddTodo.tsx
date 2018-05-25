@@ -20,7 +20,8 @@ interface AddTodoPropsInterface {
   
 }
 
-// compont tiene dos parametros props y states, son objetos
+// el padre manda como propiedad una función
+// el estado local almacena un item
 class AddTodo extends React.Component <AddTodoPropsInterface,TodoItemInterface> {
 
   constructor(props: AddTodoPropsInterface) {

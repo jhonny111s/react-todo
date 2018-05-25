@@ -1,3 +1,5 @@
+/* Contenedor que se encarga de centralizar toda la logica de almacenamiento, este seria el padre encargado de pasar el store (sin a redux) */
+
 import * as React from 'react';
 
 import './App.css';
@@ -6,7 +8,7 @@ import AppTodo from './containers/AddTodo';
 import MenuFilter from './containers/MenuFilter';
 import VisibleTodoList from './containers/VisibleTodoList';
 
-
+// Las interface son el esquema para validar el tipo de las propiedades de un objeto
 interface TodoStateInterface {
   filter: string;
   todo: TodoItemInterface[];
@@ -18,7 +20,8 @@ interface TodoItemInterface {
   text: string
 }
 
-
+// La logica se pasa como props y como este es el padre nadie le pasa nada
+// El estado es el almacenamiento local que usa el contenedor o componente
 class App extends React.Component <{}, TodoStateInterface> {
  
   constructor(props: {}) {

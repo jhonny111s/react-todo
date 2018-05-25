@@ -9,7 +9,8 @@ interface MenuPropsInterface {
 }
 
 
-// compont tiene dos parametros props y states, son objetos
+// el padre manda como propiedad una funcion y una variable
+// este contenedor no tiene ningun estado por eso el vacio
 class MenuFilter extends React.Component <MenuPropsInterface,{}> {
 
   public render() {

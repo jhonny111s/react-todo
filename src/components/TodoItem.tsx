@@ -1,6 +1,6 @@
 /* 
     - Los componentes no deberian tener logica solo recibirla por medio de props 
-    - No especifica como se carga o cambia la informacion
+    - No especifica como se carga o cambia la informacion, generalmente no tienen estado
     - usualmente es como lucen las cosas.
 */
 
