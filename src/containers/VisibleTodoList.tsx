@@ -2,44 +2,32 @@
 import * as React from 'react';
 import TodoItem from '../components/TodoItem';
 
-// compont tiene dos parametros props y states, son objetos
-class VisibleTodoList extends React.Component <any,any> {
+interface VisibleTodoInterface {
+    todo: TodoItemInterface[],
+    filter: string,
+    toogle(id: string):void
+}
 
-    constructor(props: any) {
-        super(props);
-        this.toogle = this.toogle.bind(this);
-      }
-    
+interface TodoItemInterface {
+    completed: boolean;
+    id: string,
+    text: string
+  }
 
-
-    public getVisibleTodos = (todos: any[], filter: string): any[] => {
-        switch (filter) {
-          case 'SHOW_ALL':
-            return todos
-          case 'SHOW_COMPLETED':
-            return todos.filter(t => t.completed)
-          case 'SHOW_ACTIVE':
-            return todos.filter(t => !t.completed)
-          default:
-            throw new Error('Unknown filter: ' + filter)
-        }
-      };
-
-      // preguntar porque no se puede hacer directamente en el onClick
-      public toogle = (e: any):any => {
-          this.props.toogle(e.target.id);
-      }
+// el padre manda como propiedad una funcion y dos variable
+// este contenedor no tiene ningun estado por eso el vacio
+class VisibleTodoList extends React.Component <VisibleTodoInterface,{}> {
 
   public render() {
-    let todoItems: any[] = [];
+    let todoItems:JSX.Element[] = [];
     const todoFilter = this.getVisibleTodos(this.props.todo, this.props.filter);
     
     if (todoFilter) {
-        todoItems = todoFilter.map((item: any, index: number): any => (
+        todoItems = todoFilter.map((item: TodoItemInterface, index: number) => (
             <TodoItem key= {item.id}
                 id= {item.id}
                 completed= {item.completed}
-                click= {this.toogle}>
+                click= {this.props.toogle}>
                
                 {item.text} 
             </TodoItem>
@@ -62,6 +50,20 @@ class VisibleTodoList extends React.Component <any,any> {
         </div>
     );
   }
+
+  private getVisibleTodos = (todos: TodoItemInterface[], filter: string): TodoItemInterface[]  => {
+    switch (filter) {
+      case 'SHOW_ALL':
+        return todos
+      case 'SHOW_COMPLETED':
+        return todos.filter(t => t.completed)
+      case 'SHOW_ACTIVE':
+        return todos.filter(t => !t.completed)
+      default:
+        throw new Error('Unknown filter: ' + filter)
+    }
+  };
+
 }
 
 export default VisibleTodoList;

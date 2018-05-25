@@ -3,26 +3,23 @@ import * as React from 'react';
 import Link from '../components/Link'
 
 
-// compont tiene dos parametros props y states, son objetos
-class MenuFilter extends React.Component <any,any> {
-
-  constructor(props: any) {
-    super(props);
-    this.filterChange = this.filterChange.bind(this);
-  }
+interface MenuPropsInterface {
+  filter: string,
+  change(id:string):void
+}
 
 
-  public filterChange = (event:any) => {
-    this.props.change(event.target.id);
-  }
+// el padre manda como propiedad una funcion y una variable
+// este contenedor no tiene ningun estado por eso el vacio
+class MenuFilter extends React.Component <MenuPropsInterface,{}> {
 
   public render() {
     return (
         <div>
             <p>Menu filter</p>
-            <Link id={"SHOW_ALL"} active = {this.props.filter === 'SHOW_ALL'} click={this.filterChange}> All </Link>
-            <Link id= {"SHOW_ACTIVE"} active = {this.props.filter === 'SHOW_ACTIVE'} click={this.filterChange}> Active </Link>
-            <Link id= {"SHOW_COMPLETED"} active = {this.props.filter === 'SHOW_COMPLETED'} click={this.filterChange}> Complete </Link>
+            <Link id={"SHOW_ALL"} active = {this.props.filter === 'SHOW_ALL'} click={this.props.change}> All </Link>
+            <Link id= {"SHOW_ACTIVE"} active = {this.props.filter === 'SHOW_ACTIVE'} click={this.props.change}> Active </Link>
+            <Link id= {"SHOW_COMPLETED"} active = {this.props.filter === 'SHOW_COMPLETED'} click={this.props.change}> Complete </Link>
         </div>
     );
   }
